@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class ObjectStreamDemo {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		Dog dog = new Dog("ww", 16, "girl");
+		Dog dog = new Dog("wenwen", 16, "girl");
 		//序列化，对象存入文件
 		writeOject(dog);
 		//反序列化，把文件中的对象还原

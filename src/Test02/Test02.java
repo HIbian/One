@@ -3,7 +3,7 @@ package Test02;
 public class Test02 {
 
 	public static void main(String[] args) {
-		PowerA pA = new PowerAImpl();
+		//PowerA pA = new PowerAImpl();
 		PowerB pB = new PowerBImpl();
 		Adapter adapter = new Adapter(pB);
 		
