@@ -8,11 +8,11 @@ import java.io.IOException;
 //指定一个文件将其复制到指定文件夹下
 public class CopyFile {
 	static int p =0;
-	static int buffer_size = 1024*1024*32;
+	static int buffer_size = 1024;
 	public static void main(String[] args) throws IOException {
 //		源文件
 //		File src = new File("E:\\Rili.java");
-		String src = "E:\\aa\\cn_sql_server_2017_developer_x64_dvd_11296175.iso";
+		String src = "F:\\百度云下載\\sample.zip";
 //		目标
 //		File target = new File("F:\\test\\");
 		String target = "F:\\test\\";
