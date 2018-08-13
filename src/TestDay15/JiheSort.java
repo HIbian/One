@@ -24,7 +24,6 @@ public class JiheSort {
 			public int compare(Stu o1, Stu o2) {
 				return o1.getName().compareTo(o2.getName());
 			}
-			
 		};
 		
 		Comparator<Stu> comperAge = new Comparator<Stu>() {
@@ -51,10 +50,9 @@ public class JiheSort {
 			System.out.println(stu);
 		}
 	}
-
 }
 
-class Stu{
+class Stu implements Comparable<Stu>{
 
 	String name;
 	int age;
@@ -80,5 +78,9 @@ class Stu{
 	@Override
 	public String toString() {
 		return "Stu [name=" + name + ", age=" + age + "]";
+	}
+	@Override
+	public int compareTo(Stu o) {
+		return 0;
 	}
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 public class CountNum {
 	public static void main(String[] args) {
 		HashMap<Character, Integer> hmp= new HashMap<>();
-		String str = "abcdd";
+		String str = "abcddufiftttttufujjbjbhvhjkaarrrrx";
 		char[] charArray = str.toCharArray();
 		for (int i = 0; i < charArray.length; i++) {
 			if (hmp.containsKey(charArray[i])) {

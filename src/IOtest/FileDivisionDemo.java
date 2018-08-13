@@ -6,12 +6,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.util.Enumeration;
+import java.util.Vector;
+
 
 public class FileDivisionDemo {
 	final static long DEFAULTSIZE = 1024*1024;
 	public static void main(String[] args) throws IOException {
 		File file = new File("F:\\test\\sample.zip");
-		TheDivision(file,DEFAULTSIZE*6);
+		TheDivision(file,DEFAULTSIZE*5);
+		merge();
 	}
 
 	/**
@@ -68,8 +74,32 @@ public class FileDivisionDemo {
 		in.close();	
 	}
 
-	public static void merge() {
-
+	public static void merge() throws IOException {
+		InputStream in1 = new FileInputStream(new File("F:\\test\\1---sample.zip"));
+		InputStream in2 = new FileInputStream(new File("F:\\test\\2---sample.zip"));
+		InputStream in3 = new FileInputStream(new File("F:\\test\\3---sample.zip"));
+		InputStream in4 = new FileInputStream(new File("F:\\test\\4---sample.zip"));
+		InputStream in5 = new FileInputStream(new File("F:\\test\\5---sample.zip"));
+		Vector<InputStream> v = new Vector<>();
+		v.add(in1);
+		v.add(in2);
+		v.add(in3);
+		v.add(in4);
+		v.add(in5);
+		Enumeration<InputStream> es = v.elements();
+		//合并流
+		SequenceInputStream sis = new SequenceInputStream(es);
+		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File("F:\\sample.zip")));
+		byte[] bs = new byte[1024];
+		int len = -1;
+		while ((len=sis.read(bs))!=-1) {
+			bos.write(bs, 0, len);
+		}
+		
+		bos.close();
+		sis.close();
+		System.out.println("done");
+		
 	}
 
 }
