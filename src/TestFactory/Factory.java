@@ -1,4 +1,4 @@
-package Test;
+package TestFactory;
 
 public class Factory {
 
