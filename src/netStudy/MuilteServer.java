@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 public class MuilteServer {
 	public static void main(String[] args) throws IOException {
 		ExecutorService pool = Executors.newFixedThreadPool(3);
+		@SuppressWarnings("resource")
 		ServerSocket sockets = new ServerSocket(6666);
 		System.out.println("服务器已启动，等待连接");
 		//等待链接

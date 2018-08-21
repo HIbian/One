@@ -9,33 +9,25 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class ECHODemo {
+public class eeecho {
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		
-		//创建Socket对象，连接指定服务器
-		Socket socket = new Socket("localhost", 6666);
-		Scanner input = new Scanner(System.in);
-//		System.out.println(".连接成功，"+socket.isBound()+"请输入信息：");
-		//向服务器发送数据
+		Scanner scan = new Scanner(System.in);
+		//连接服务器
+		@SuppressWarnings("resource")
+		Socket socket = new Socket("127.0.0.1", 8080);
+		System.out.println("已经链接上了服务器...");
+		System.out.println("输入要传入服务器的信息");
+		String info = scan.next();
+		scan.close();
+		//输入信息
 		PrintStream ps = new PrintStream(new BufferedOutputStream(socket.getOutputStream()));
-		ps.println(input.next());
-		ps.flush();
-		//读取服务器取回数据
+		ps.println(info);
+		ps.flush();//确保立即写完到socket中
+		//获取服务器返回信息
 		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		String info =  br.readLine();
+		String echo = br.readLine();
+		System.out.println(echo);
 		ps.close();
 		br.close();
-		System.out.println(info);
-		socket.close();
-		input.close();
 	}
 }
-
-
-
-
-
-
-
-
-
