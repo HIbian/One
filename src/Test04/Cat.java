@@ -1,68 +1,64 @@
 package Test04;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
+
+/**
+ * 系统工具类，用于获取系统相关信息
+ * Created by kagome.
+ */
 public class Cat {
-	String name;
-	int age;
-	int id;
-        //update in github
-	public Cat() {
-		super();
-		// TODO Auto-generated constructor stub
+    public static String INTRANET_IP = getIntranetIp(); // 内网IP
+    public static String INTERNET_IP = getInternetIp(); // 外网IP
+    public static void main(String[] args) {
+		String internetIp = getInternetIp();
+		String intranetIp = getIntranetIp();
+		System.out.println(internetIp +"  "+intranetIp);
 	}
-	public Cat(String name, int age, int id) {
-		super();
-		this.name = name;
-		this.age = age;
-		this.id = id;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + age;
-		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cat other = (Cat) obj;
-		if (age != other.age)
-			return false;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
-	@Override
-	public String toString() {
-		return "Cat [name=" + name + ", age=" + age + ", id=" + id + "]";
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+    private Cat(){}
+
+    /**
+     * 获得内网IP
+     * @return 内网IP
+     */
+    private static String getIntranetIp(){
+        try{
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 获得外网IP
+     * @return 外网IP
+     */
+    private static String getInternetIp(){
+        try{
+            Enumeration<NetworkInterface> networks = NetworkInterface.getNetworkInterfaces();
+            InetAddress ip = null;
+            Enumeration<InetAddress> addrs;
+            while (networks.hasMoreElements())
+            {
+                addrs = networks.nextElement().getInetAddresses();
+                while (addrs.hasMoreElements())
+                {
+                    ip = addrs.nextElement();
+                    if (ip != null
+                            && ip instanceof Inet4Address
+                            && ip.isSiteLocalAddress()
+                            && !ip.getHostAddress().equals(INTRANET_IP))
+                    {
+                        return ip.getHostAddress();
+                    }
+                }
+            }
+
+            // 如果没有外网IP，就返回内网IP
+            return INTRANET_IP;
+        } catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 }
